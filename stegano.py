@@ -56,3 +56,23 @@ def decode_image(image_path):
     print("[+] Pesan ditemukan:")
     print(decoded_message)
 
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Steganografi Gambar - Sisipkan atau Baca Pesan dari Gambar")
+    parser.add_argument("mode", choices=["encode", "decode"], help="Mode: encode atau decode")
+    parser.add_argument("-i", "--input", help="Path ke gambar input", required=True)
+    parser.add_argument("-o", "--output", help="Path untuk menyimpan gambar output")
+    parser.add_argument("-m", "--message", help="Pesan yang akan disisipkan")
+
+    args = parser.parse_args()
+
+    if args.mode == "encode":
+        if not args.message or not args.output:
+            print("[-] Encode membutuhkan --message dan --output.")
+        else:
+            encode_image(args.input, args.message, args.output)
+
+    elif args.mode == "decode":
+        decode_image(args.input)
